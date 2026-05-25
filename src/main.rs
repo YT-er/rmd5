@@ -75,7 +75,7 @@ fn parse_args(args: impl IntoIterator<Item = String>) -> Result<Config, String> 
     let mut check_file = None;
     let mut files = Vec::new();
     let mut jobs = thread::available_parallelism().map_or(1, usize::from);
-    let mut cache_mode = CacheMode::DropCache;
+    let mut cache_mode = CacheMode::KeepCache;
     let mut binary = false;
     let mut buffer_size = DEFAULT_BUFFER_SIZE;
 
@@ -166,11 +166,11 @@ Options:
   -c, --check FILE       read md5sum-style checksums from FILE and verify them
   -j, --jobs N           number of worker threads (default: available CPUs)
   -b, --binary           print '*' before file names, like md5sum -b
-      --no-cache         drop file pages after reading each chunk (default)
+      --keep-cache       leave page cache alone (default, fastest)
+      --no-cache         drop file pages after reading each chunk
       --drop-cache       same as --no-cache
-      --keep-cache       leave page cache alone
       --direct           Linux only: open files with O_DIRECT
-      --buffer-size N    read buffer size in bytes (default: 1048576)
+      --buffer-size N    read buffer size in bytes (default: 16777216)
   -h, --help             show this help
 "
     );

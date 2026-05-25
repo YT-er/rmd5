@@ -7,9 +7,10 @@ Features:
 - md5sum-style output: `<32 hex digest><two spaces><file>`
 - `md5sum -c` style verification
 - multi-threaded hashing for many files
-- streaming reads with a fixed-size buffer
+- streaming reads with a fixed-size 16 MiB buffer by default
 - Linux cache control:
-  - default: `posix_fadvise(..., POSIX_FADV_DONTNEED)` after each chunk
+  - default: keep page cache for speed
+  - optional: `--no-cache` calls `posix_fadvise(..., POSIX_FADV_DONTNEED)` after each chunk
   - optional: `--direct` opens files with `O_DIRECT`
 
 ## Usage
@@ -18,8 +19,9 @@ Features:
 rmd5 file1 file2
 rmd5 -j 8 file1 file2
 rmd5 -c checksums.md5
+rmd5 --no-cache big-file.iso
 rmd5 --direct big-file.iso
-rmd5 --keep-cache file1
+rmd5 --buffer-size 33554432 file1
 ```
 
 ## CentOS 7 build

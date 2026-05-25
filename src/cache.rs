@@ -89,7 +89,7 @@ mod linux {
     }
 
     pub fn prepare_file(file: &File, mode: CacheMode) {
-        if mode != CacheMode::KeepCache {
+        if mode != CacheMode::Direct {
             let fd = file.as_raw_fd();
             unsafe {
                 let _ = posix_fadvise(fd, 0, 0, POSIX_FADV_SEQUENTIAL);

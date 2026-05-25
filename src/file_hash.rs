@@ -4,7 +4,7 @@ use std::fs::File;
 use std::io::{self, Read};
 use std::path::Path;
 
-pub const DEFAULT_BUFFER_SIZE: usize = 1024 * 1024;
+pub const DEFAULT_BUFFER_SIZE: usize = 16 * 1024 * 1024;
 
 pub fn hash_path(path: &Path, mode: CacheMode, buffer_size: usize) -> io::Result<[u8; 16]> {
     if path == Path::new("-") {
